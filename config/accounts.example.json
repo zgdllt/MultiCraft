@@ -1,0 +1,10 @@
+{
+  "operatorLinuxUser": "asta",
+  "operatorAccountId": "operator",
+  "accounts": [
+    {"id": "operator", "linuxUser": "asta", "displayName": "Operator", "minecraftUsername": "MCPlayer1", "nativeSession": "slot1", "enabled": true, "publicKeys": ["REPLACE_WITH_YOUR_OPENSSH_PUBLIC_KEY"]},
+    {"id": "player2", "linuxUser": "player2", "displayName": "Player 2", "minecraftUsername": "MCPlayer2", "nativeSession": "slot2", "enabled": true, "publicKeys": ["REPLACE_WITH_PLAYER_2_OPENSSH_PUBLIC_KEY"]},
+    {"id": "player3", "linuxUser": "player3", "displayName": "Player 3", "minecraftUsername": "MCPlayer3", "nativeSession": "slot3", "enabled": true, "publicKeys": ["REPLACE_WITH_PLAYER_3_OPENSSH_PUBLIC_KEY"]},
+    {"id": "player4", "linuxUser": "player4", "displayName": "Player 4", "minecraftUsername": "MCPlayer4", "nativeSession": "slot4", "enabled": true, "publicKeys": ["REPLACE_WITH_PLAYER_4_OPENSSH_PUBLIC_KEY"]}
+  ]
+}

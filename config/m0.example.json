@@ -1,0 +1,15 @@
+{
+  "origin": "https://localhost:18080",
+  "host": "127.0.0.1",
+  "port": 18080,
+  "backendPort": 18081,
+  "minecraftPort": 25585,
+  "minecraftUsername": "M0Player",
+  "java": "java",
+  "renderNode": "/dev/dri/renderD128",
+  "accounts": ".runtime/accounts.json",
+  "policyFile": ".runtime/stream-policy.json",
+  "masterToken": ".runtime/media/master-token",
+  "tlsCert": ".runtime/tls/server.crt",
+  "tlsKey": ".runtime/tls/server.key"
+}

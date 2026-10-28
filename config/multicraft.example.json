@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "runtimeDirectory": ".runtime/pool",
+  "serverAddress": "127.0.0.1:25565",
+  "controlPort": 18441,
+  "render": {"width": 1280, "height": 720, "node": "/dev/dri/renderD128"},
+  "sessions": [
+    {"id": "slot1", "username": "MCPlayer1", "stream": {"width": 1280, "height": 720, "fps": 60, "bitrateKbps": 6000, "adaptive": true}},
+    {"id": "slot2", "username": "MCPlayer2", "stream": {"width": 1280, "height": 720, "fps": 60, "bitrateKbps": 6000, "adaptive": true}},
+    {"id": "slot3", "username": "MCPlayer3", "stream": {"width": 1280, "height": 720, "fps": 60, "bitrateKbps": 6000, "adaptive": true}},
+    {"id": "slot4", "username": "MCPlayer4", "stream": {"width": 1280, "height": 720, "fps": 60, "bitrateKbps": 6000, "adaptive": true}}
+  ],
+  "accountsFile": ".runtime/accounts.json",
+  "policyFile": ".runtime/stream-policy.json",
+  "tlsCertificate": ".runtime/tls/server.crt",
+  "tlsKey": ".runtime/tls/server.key"
+}

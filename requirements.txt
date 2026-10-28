@@ -1,0 +1,8 @@
+# Third-party runtime. Native wheels/system libraries must be provisioned by OP.
+# See THIRD_PARTY.md; MultiCraft does not install host software automatically.
+selkies==2.1.0
+pixelflux==2.2.1
+pcmflux==2.2.0
+aiohttp==3.14.5
+cryptography==50.0.2
+pulsectl-asyncio==1.3.2

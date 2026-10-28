@@ -1,0 +1,3 @@
+# Unit/contract tests only. This does not install the native capture stack.
+aiohttp==3.14.5
+cryptography==50.0.2

@@ -1,0 +1,4 @@
+{
+  "revision": 0,
+  "limits": {"width": [320, 1920], "height": [180, 1080], "fps": [10, 1000], "bitrateKbps": [500, 20000]}
+}

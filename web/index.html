@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MultiCraft</title><link rel="stylesheet" href="style.css"><link rel="icon" type="image/png" href="assets/brand/logo.png"></head>
+<body>
+<header><div><img class="brand-logo" src="assets/brand/logo.png" alt="MultiCraft"><strong>MultiCraft</strong><span class="badge">ALPHA · 多开与串流</span></div><div><a class="new-tab" href="/" target="_blank" rel="noopener">新身份标签页 ↗</a><span id="identity">公钥登录</span></div></header>
+<main>
+<section id="login" class="login-card">
+<p class="eyebrow">进入你的云端 Minecraft</p><h1>原版游戏，浏览器开玩。</h1><p class="muted">使用已经登记的公钥登录。私钥始终留在本机。</p>
+<div class="tabs"><button class="active" id="browser-tab">游戏专用密钥</button><button id="ssh-tab">OpenSSH 密钥</button></div>
+<div id="browser-login"><label>选择本地游戏密钥 JSON<input id="key-file" type="file" accept="application/json,.json"></label><p class="hint">文件包含 Ed25519 SPKI 公钥和 PKCS8 私钥，仅在本机 Web Crypto 中签名。请使用专用游戏密钥。</p><button class="primary" id="login-browser">签名并登录</button></div>
+<div id="ssh-login" hidden><label>已登记的 OpenSSH 公钥<textarea id="ssh-public" placeholder="ssh-ed25519 AAAA…"></textarea></label><button id="download-challenge">下载登录挑战</button><p class="hint">在本机执行：<code>python3 scripts/sign_login.py challenge.json --key ~/.ssh/你的密钥</code>，将返回的 SSH SIGNATURE 粘贴到下方。挑战有效期 120 秒。</p><label>本机签名结果<textarea id="ssh-signature" placeholder="-----BEGIN SSH SIGNATURE-----"></textarea></label><button class="primary" id="verify-ssh">验签并登录</button></div>
+<div id="account-select" hidden><label>此密钥可登录多个身份<select id="account-options"></select></label><button class="primary" id="select-account">以所选身份登录</button></div>
+<p id="login-message" class="message" aria-live="polite"></p>
+</section>
+<section id="game" hidden>
+<div class="session-bar"><div><span class="status-dot"></span><span id="connection-status">准备测试会话</span></div><div><button class="primary" id="enter-game" disabled>进入游戏 / 锁定鼠标</button><button id="gui-mode">普通鼠标 / GUI</button><button id="fullscreen">游戏全屏</button><button id="mc-menu">MC 菜单（F9）</button><button id="release">释放控制权</button><button id="logout">退出登录</button></div></div>
+<p id="input-status" class="message input-status" aria-live="polite">鼠标未锁定 · 连接画面后点击“进入游戏”</p>
+<p id="state-message" class="message error" role="status" hidden></p>
+<p id="connection-message" class="message error" role="status" hidden></p>
+<div class="game-layout"><div class="viewport"><div id="placeholder"><img class="brand-logo large" src="assets/brand/logo.png" alt=""><h2>准备连接</h2><p>每个标签页使用自己的身份与客户端画面。</p><button class="primary" id="connect">连接游戏</button></div><iframe id="stream" title="Minecraft 原版游戏画面" allow="autoplay; fullscreen; keyboard-map; gamepad; clipboard-read; clipboard-write" allowfullscreen hidden></iframe></div>
+<aside><h2>传流设置</h2><p class="hint">这些参数只影响你的传流，不改变 OP 管理的材质和光影档案。</p>
+<form id="stream-config"><label>分辨率<select id="resolution"><option value="640,360">640 × 360</option><option value="960,540">960 × 540</option><option value="1280,720" selected>1280 × 720</option><option value="1600,900">1600 × 900</option><option value="1920,1080">1920 × 1080</option><option value="custom">自定义</option></select></label><p id="resolution-cap" class="hint">正在读取 OP 上限</p><div class="two"><label>宽度<input id="width" type="number" min="320" max="1920" step="2" value="1280" required></label><label>高度<input id="height" type="number" min="180" max="1080" step="2" value="720" required></label></div><label>帧率 <span id="fps-range">10–1000 fps</span><input id="fps" type="number" min="10" max="1000" value="30" required></label><label>视频码率 <span id="bitrate-range">500–20000 kbps</span><input id="bitrate" type="number" min="500" max="20000" value="8000" step="100" required></label><label class="toggle"><input id="adaptive" type="checkbox" checked><span>自适应码率</span></label><p class="hint" id="abr-help">根据链路拥塞，在所设码率上限内自动调节。</p><button class="primary" type="submit" id="apply">应用设置</button></form>
+<p id="config-message" class="message" aria-live="polite"></p><hr><h3>实际传流</h3><dl><div><dt>传输</dt><dd>WebSocket</dd></div><div><dt>视频 / 音频</dt><dd>H.264 / PCM</dd></div><div><dt>后端生效</dt><dd id="effective">等待确认</dd></div><div><dt>实际采集</dt><dd id="measured">等待视频</dd></div><div><dt>浏览器接收</dt><dd id="received">等待解码</dd></div><div><dt>接收速率</dt><dd id="received-bitrate">等待视频</dd></div><div><dt>浏览器解码</dt><dd id="decoder">等待确认</dd></div><div><dt>音频</dt><dd id="audio-state">等待连接</dd></div><div><dt>自适应</dt><dd id="adaptive-state">等待确认</dd></div></dl><p class="hint">码率是编码目标或自适应上限，瞬时流量会随画面变化。接收速率由浏览器实测，音频使用 48 kHz 双声道 PCM。</p></aside></div>
+<form id="chat-form" class="chat-entry"><label for="chat-text">聊天文字</label><input id="chat-text" maxlength="256" placeholder="在本机输入中文或其他文字，再发送到游戏" autocomplete="off"><button type="submit">发送</button></form>
+<p class="hint footer-note">点击“进入游戏”控制视角，F9 打开菜单，F8 释放鼠标；全屏使用独立按钮。传流参数可在 OP 允许的范围内调整。</p>
+<section id="op-limits" class="op-policy" hidden><div><h2>OP · 传流上限</h2><p id="policy-revision" class="hint"></p></div><p class="hint">仅配置的 OP 管理。玩家可在上限内自选传流参数；降低上限会先调整当前传流，媒体确认成功后才保存。这里的绝对边界用于拒绝无界输入，不代表可达到相应性能。</p><form id="op-limits-form"><div class="policy-grid"><label>最大宽度<input id="limit-width" type="number" min="320" max="3840" step="2" required></label><label>最大高度<input id="limit-height" type="number" min="180" max="2160" step="2" required></label><label>最大帧率<input id="limit-fps" type="number" min="10" max="1000" required></label><label>最大码率 kbps<input id="limit-bitrateKbps" type="number" min="500" max="50000" required></label></div><button class="primary" id="save-limits" type="submit">保存传流上限</button> <button id="reload-limits" type="button">重新加载</button></form><p id="limits-message" class="message" aria-live="polite"></p></section>
+</section>
+</main><script type="module" src="app.js"></script>
+</body></html>

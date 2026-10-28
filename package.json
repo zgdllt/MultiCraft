@@ -1,0 +1,16 @@
+{
+  "name": "multicraft-browser-runtime",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "type": "module",
+  "description": "Browser UI and tests for the MultiCraft Minecraft client pool",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test web/*.test.mjs",
+    "test:input": "node --test web/game-input.test.mjs",
+    "check:web": "node --check web/app.js && node --check web/game-input.js && node --check web/m1-app.js && node --check web/m1-player.js && node --check web/viewer-bridge.js && node --check web/viewer-input.js && node --check web/viewer.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
